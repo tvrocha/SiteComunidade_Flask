@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Blog - Login</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Faça login ou Crie sua Conta</h2>
+    <div class="row">
+        <div class="col">
+            <h3>Login</h3>
+            {{ form_login.email.label }}
+            {{ form_login.email }}
+            {{ form_login.password.label }}
+            {{ form_login.password }}
+            {{ form_login.remember_data }}
+            {{ form_login.remember_data.label }}
+            {{ form_login.button_submit_login }}
+        </div>
+        <div class="col-6">
+            <h3>Criar Conta</h3>
+            {{ form_criarconta.username.label }}
+            {{ form_criarconta.username }}
+            {{ form_criarconta.email.label }}
+            {{ form_criarconta.email }}
+            {{ form_criarconta.password.label }}
+            {{ form_criarconta.password }}
+            {{ form_criarconta.confirm_pass.label }}
+            {{ form_criarconta.confirm_pass }}
+            {{ form_criarconta.button_submit_criarconta }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+        

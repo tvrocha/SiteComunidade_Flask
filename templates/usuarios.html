@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Blog - Usuários</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Usuários</h1>
+    <h2>Aqui listaremos todos os usuarios:</h2>
+    {% for usuario in lista_usuarios: %}
+        <p>{{ usuario }}</p>
+        <hr>
+    {% endfor %}
+</div>        
+{% endblock %}
