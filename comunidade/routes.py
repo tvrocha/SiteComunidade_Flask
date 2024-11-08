@@ -1,5 +1,6 @@
-from comunidade import app
+from comunidade import app, database, bcrypt
 from comunidade.forms import FormLogin, FormCriarConta
+from comunidade.models import Usuario
 from flask import render_template, redirect, url_for, flash, request
 
 lista_usuarios = ['Tulio', 'Guido', 'Junior', 'Sandra', 'Pancho']
@@ -27,6 +28,13 @@ def pagina_login():
         flash(f'Login feito com sucesso para email: {form_login.email.data}', 'alert-success')
         return redirect(url_for('home'))
     if form_criarconta.validate_on_submit() and 'button_submit_criarconta' in request.form:
+        # criar o usuario
+        # adicionar a sessão e commitar
+        with app.app_context():
+            password_bcrypt = bcrypt.generate_password_hash(form_criarconta.password.data)
+            usuario = Usuario(username=form_criarconta.username.data, email=form_criarconta.email.data, password=password_bcrypt)
+            database.session.add(usuario)
+            database.session.commit()
         flash(f'Conta criada com sucesso para email: {form_criarconta.email.data}', 'alert-success')
         return redirect(url_for('home'))
     return render_template("login.html", form_login=form_login, form_criarconta=form_criarconta)
