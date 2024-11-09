@@ -1,8 +1,17 @@
-from comunidade import database
+from comunidade import database, login_manager
 from datetime import datetime
+from flask_login import UserMixin
 
 
-class Usuario(database.Model):
+@login_manager.user_loader
+def load_usuario(id_usuario):
+    # método get busca a primary_key da tabela
+    # int para garantir que o id seja inteiro
+    return Usuario.query.get(int(id_usuario))
+
+
+# UserMixin atribui a classe tudo que precisa pro login (se manter logado, etc...)
+class Usuario(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String, nullable=False)
     email = database.Column(database.String, nullable=False, unique=True)
